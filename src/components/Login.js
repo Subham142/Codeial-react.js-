@@ -1,46 +1,58 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { login } from '../actions/auth';
+import { login, clearAuthState } from '../actions/auth';
 
- class Login extends Component {
-    
-    constructor(props){
-        super(props);
-        this.state = {
-            email :'',
-            password : '',
-        };
-    }
-    
-    handleEmailChange = (e) => {
-        this.setState({
-            email: e.target.value,
-        })
-    }
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    // this.emailInputRef = React.createRef();
+    // this.passwordInputRef = React.createRef();
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
 
-    handlePasswordChange = (e) => {
-        this.setState({
-            password: e.target.value,
-        })
-    }
+  componentWillUnmount() {
+    this.props.dispatch(clearAuthState());
+  }
 
-    handleFormSubmit = (e) => {
-        e.preventDefault();
-        console.log('this.state',this.state);
-        const{email,password}= this.state;
-
-        if(email && password) {
-          this.props.dispatch(login(email,password));
-        }
+  handleEmailChange = (e) => {
+    this.setState({
+      email: e.target.value,
+    });
   };
 
-    render() {
-      const {error ,inProgress} = this.props.auth;
-        return (
-        <form className="login-form">
+  handlePasswordChange = (e) => {
+    this.setState({
+      password: e.target.value,
+    });
+  };
+
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+    // console.log('this.emailInputRef', this.emailInputRef);
+    // console.log('this.passwordInputRef', this.passwordInputRef);
+    console.log('this.state', this.state);
+    const { email, password } = this.state;
+
+    if (email && password) {
+      this.props.dispatch(login(email, password));
+    }
+  };
+
+  render() {
+    const { error, inProgress, isLoggedin } = this.props.auth;
+
+    if (isLoggedin) {
+      return <Redirect to="/" />;
+    }
+    return (
+      <form className="login-form">
         <span className="login-signup-header">Log In</span>
-        {error && <div className="alert-error-dailog">{error}</div>}
+        {error && <div className="alert error-dailog">{error}</div>}
         <div className="field">
           <input
             type="email"
@@ -63,21 +75,23 @@ import { login } from '../actions/auth';
         </div>
         <div className="field">
           {inProgress ? (
-            <button onClick={this.handleFormSubmit} disabled={inProgress}
-            >Loggin In....
+            <button onClick={this.handleFormSubmit} disabled={inProgress}>
+              Logging in...
             </button>
-          ):(<button onClick={this.handleFormSubmit} disabled={inProgress}
-            >Log In</button>)}
+          ) : (
+            <button onClick={this.handleFormSubmit} disabled={inProgress}>
+              Log In
+            </button>
+          )}
         </div>
       </form>
-        )
-    }
-}
-
-function mapStateToProps(state){
-  return{
-    auth: state.auth,
+    );
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    auth: state.auth,
+  };
+}
 export default connect(mapStateToProps)(Login);

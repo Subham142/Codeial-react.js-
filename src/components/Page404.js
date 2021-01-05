@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-export default function Page404(props) {
-    return (
-        <div>
-            <h1>404 :PAGE NOT FOUND</h1>
-        </div>
-    )
+function Page404(props) {
+  return (
+    <div>
+      <h1>404: Nothing found here!</h1>
+    </div>
+  );
 }
+
+export default Page404;
