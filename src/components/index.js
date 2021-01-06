@@ -7,5 +7,4 @@ import Login from './Login';
 import Signup from './Signup';
 import Settings from './Settings';
 
-
 export { PostsList, App, Navbar, Home, Page404, Login, Signup, Settings };
