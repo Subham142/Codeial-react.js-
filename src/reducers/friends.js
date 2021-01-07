@@ -1,4 +1,8 @@
-import { ADD_FRIEND, FETCH_FRIENDS_SUCCESS, REMOVE_FRIEND } from '../actions/actionTypes';
+import {
+   ADD_FRIEND,
+    FETCH_FRIENDS_SUCCESS,
+     REMOVE_FRIEND
+     } from '../actions/actionTypes';
 
 const defaultProfileState = [];
 
