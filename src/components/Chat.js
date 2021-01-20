@@ -72,11 +72,11 @@ class Chat extends Component {
       <div className="chat-container">
         <div className="chat-header">
           Chat
-          {/* <img
+          <img
             src="https://www.iconsdb.com/icons/preview/white/minus-5-xxl.png"
             alt=""
             height={17}
-          /> */}
+          />
         </div>
         <div className="chat-messages">
           {messages.map((message) => (

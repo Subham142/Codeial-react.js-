@@ -18,7 +18,7 @@ import {
   Settings,
   UserProfile,
 } from './';
-import jwtDecode from "jwt-decode";
+import * as jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
 import { getAuthTokenFromLocalStorage } from '../helpers/utils';
 import { fetchUserFriends } from '../actions/friends';
